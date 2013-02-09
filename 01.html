@@ -1,0 +1,36 @@
+<html>
+<head>
+<script>
+var canvas = null;
+var context = null;
+var img = null;
+
+var setup = function() {
+    var body = document.getElementById("body");
+    canvas = document.createElement("canvas");
+
+    context = canvas.getContext('2d');
+
+    canvas.setAttribute('width', 500);
+    canvas.setAttribute('height', 700);
+
+    body.appendChild(canvas);
+
+    img = new Image();
+    img.onload = onImageLoad;
+    img.src = "elements9x3.png";
+};
+
+var onImageLoad = function(){
+    console.log("IMAGE!!!");
+    context.drawImage(img, 192, 192);
+};
+
+window.onload = setup;
+</script>
+</head>
+
+
+<body id='body'>
+</body>
+</html>
