@@ -21,9 +21,51 @@ var setup = function() {
     img.src = "elements9x3.png";
 };
 
+// image properties
+// 9 x 3 tiles
+// 270 x 111 pixels
+// 30 x 37 tile Width, Height
+// 28 x 35 tiles after bleeds
+//
+// how to get x of upper corner (starting index at 0)
+// x = ((i % 9) * tileWidth) + xbleed, 
+// y = (floor(i / 3) * tileHeight) + yBleed, 
+
+var getUpperLeftX = function(i) {
+    return ((i % 9) * 30) + 1;
+};
+var getUpperLeftY = function(i) {
+    return (Math.floor(i / 9) * 37) + 1;
+}
+
 var onImageLoad = function(){
-    console.log("IMAGE!!!");
-    context.drawImage(img, 192, 192);
+
+    var i = 0;
+    var xClip;
+    var yClip;
+
+    // with two orientation arguments:
+    // xPos, yPos (of image upper left corner, from upper left corner of canvas)
+
+    // with four arguments
+    // xPos, yPos (of image upper left corner, from upper left corner of canvas)
+    // width, height (of image, in css pixels)
+
+    // with eight arguments, the first four arguments determin the clipping
+    // imgX, imgY, (on the image, where we start clipping from)
+    // imgWidth, imgHeight, (on the image)
+    // xPos, yPos (of image upper left corner, from upper left corner of canvas)
+    // width, height (of image, in css pixels)
+    window.setInterval(function() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        xClip = getUpperLeftX(i);
+        yClip = getUpperLeftY(i);
+        i++;
+        i = i % 27;
+        context.drawImage(img, xClip, yClip, 28, 35, 0, 0, 28, 35);
+    }, 1000/1); // interval in ms 
+
 };
 
 window.onload = setup;
