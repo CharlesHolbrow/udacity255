@@ -57,14 +57,13 @@ var onImageLoad = function(){
     // xPos, yPos (of image upper left corner, from upper left corner of canvas)
     // width, height (of image, in css pixels)
     window.setInterval(function() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.clearRect(0, 0, canvas.width, canvas.height);
 
-        xClip = getUpperLeftX(i);
-        yClip = getUpperLeftY(i);
+        xClip = getUpperLeftX(i % 27);
+        yClip = getUpperLeftY(i % 27);
         i++;
-        i = i % 27;
-        context.drawImage(img, xClip, yClip, 28, 35, 0, 0, 28, 35);
-    }, 1000/1); // interval in ms 
+        context.drawImage(img, xClip, yClip, 28, 35, i, i, 28, 35);
+    }, 1000/10); // interval in ms 
 
 };
 
