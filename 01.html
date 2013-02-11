@@ -40,9 +40,22 @@ var getUpperLeftY = function(i) {
 
 var onImageLoad = function(){
 
-    var i = 0;
     var xClip;
     var yClip;
+    var tileWidth = 28;
+    var tileHeight = 35
+    var cellWidth = 30;
+    var cellHeight = 37;
+
+    //Where do we position the tiles on the canvas
+    var xCursor = 0;
+    var yCursor = 0;
+
+    // how wide is the map in tiles 
+    var tileCountX = 20; // could be map.width
+    var tileCountY = 20; //
+
+    //
 
     // with two orientation arguments:
     // xPos, yPos (of image upper left corner, from upper left corner of canvas)
@@ -55,16 +68,27 @@ var onImageLoad = function(){
     // imgX, imgY, (on the image, where we start clipping from)
     // imgWidth, imgHeight, (on the image)
     // xPos, yPos (of image upper left corner, from upper left corner of canvas)
-    // width, height (of image, in css pixels)
-    window.setInterval(function() {
-        //context.clearRect(0, 0, canvas.width, canvas.height);
+    // width, height (of image printed on the canvas, in css pixels)
 
-        xClip = getUpperLeftX(i % 27);
-        yClip = getUpperLeftY(i % 27);
-        i++;
-        context.drawImage(img, xClip, yClip, 28, 35, i, i, 28, 35);
-    }, 1000/10); // interval in ms 
+    //window.setInterval(function() {
+    //}, 0); // interval in ms
 
+    tileIndexes = [0, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+
+    drawMap = function() {
+        for (var i =0; i < tileCountX * tileCountY; i++) {
+
+            var tileIndex = tileIndexes[Math.floor( (Math.random()*tileIndexes.length) )];
+
+            xClip = getUpperLeftX(tileIndex % 27);
+            yClip = getUpperLeftY(tileIndex % 27);
+            xCursor = tileWidth * (i % tileCountX);
+            yCursor = tileHeight * (Math.floor(i / tileCountX));
+            context.drawImage(img, xClip, yClip, 28, 35, xCursor, yCursor, 28, 35);
+        }; // for loop
+    }; // draw map function 
+
+    drawMap();
 };
 
 window.onload = setup;
